@@ -19,7 +19,26 @@ function bigiGetCart(){try{return JSON.parse(localStorage.getItem(BIGI_CART_KEY)
 function bigiSaveCart(cart){localStorage.setItem(BIGI_CART_KEY,JSON.stringify(cart));bigiUpdateCartCount()}
 function bigiUpdateCartCount(){const count=bigiGetCart().reduce((sum,item)=>sum+item.qty,0);document.querySelectorAll("[data-cart-count],#cartCount").forEach(el=>el.textContent=count)}
 function bigiAddToCart(id){const product=BIGI_PRODUCTS.find(p=>p.id===id);if(!product)return;const cart=bigiGetCart();const item=cart.find(p=>p.id===id);if(item)item.qty+=1;else cart.push({id,qty:1});bigiSaveCart(cart);const toast=document.getElementById("toastMessage");if(toast){toast.querySelector("span").textContent=product.name+" added to cart";toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1800)}}
-function bigiCard(p){const icon=p.art==="phone"?"bi-phone":p.art==="laptop"?"bi-laptop":"bi-tablet";return '<div class="col-6 col-lg-4 col-xl-3"><article class="product-card store-product"><div class="store-product-art '+p.art+'"><span class="store-condition">'+p.condition+'</span><i class="bi '+icon+'"></i><small>BIGI GADGETS</small></div><div class="product-details"><span class="product-type">'+p.category.toUpperCase()+'</span><h3>'+p.name+'</h3><p>'+p.detail+'</p><div class="store-price">Price on request</div><button class="product-cta" type="button" data-add-product="'+p.id+'">ADD TO CART <i class="bi bi-bag-plus"></i></button></div></article></div>'}
+function bigiCard(p){
+ const photos={
+  "ip11-64":"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=700",
+  "ip12-128":"https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=700",
+  "ip13-128":"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=700",
+  "ip14-128":"https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=700",
+  "ip15-128":"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=700",
+  "s21-128":"https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=700",
+  "s22-128":"https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=700",
+  "s23-256":"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=700",
+  "hp840":"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=700",
+  "dell7420":"https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=700",
+  "mba-m1":"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=700",
+  "ipad9":"https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=700",
+  "ipad10":"https://images.unsplash.com/photo-1561154464-82e9adf32764?w=700",
+  "tab-s8":"https://images.unsplash.com/photo-1589739900243-4b52cd9b104e?w=700"
+ };
+ const photo=photos[p.id]||"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=700";
+ return '<div class="col-6 col-lg-4 col-xl-3"><article class="product-card store-product"><div class="store-product-art"><img src="'+photo+'" alt="'+p.name+'" loading="lazy"><span class="store-condition">'+p.condition+'</span></div><div class="product-details"><span class="product-type">'+p.category.toUpperCase()+' / '+p.id.toUpperCase()+'</span><h3>'+p.name+'</h3><p>'+p.detail+'</p><div class="store-price">Price on request</div><button class="product-cta" type="button" data-add-product="'+p.id+'">ADD TO CART <i class="bi bi-bag-plus"></i></button></div></article></div>'
+}
 function bigiRenderCart(root){
  const cart=bigiGetCart();
  if(!cart.length){root.innerHTML='<div class="cart-empty"><i class="bi bi-bag-x"></i><h2>Your cart is empty</h2><p>Explore our collections and add the gadgets you want.</p><a class="btn btn-electric" href="phones.html">SHOP PHONES</a> <a class="btn btn-outline-dark rounded-pill" href="laptops.html">SHOP LAPTOPS</a></div>';return}
