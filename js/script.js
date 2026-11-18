@@ -1,0 +1,34 @@
+// Small interactions for the Victor Balogun portfolio.
+document.addEventListener("DOMContentLoaded", () => {
+  const year = document.getElementById("year");
+  if (year) year.textContent = new Date().getFullYear();
+
+  // Close the mobile navigation after a visitor selects a section.
+  const nav = document.getElementById("mainNav");
+  if (nav && window.bootstrap) {
+    nav.querySelectorAll(".nav-link").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth < 992) {
+          const collapse = bootstrap.Collapse.getInstance(nav);
+          if (collapse) collapse.hide();
+        }
+      });
+    });
+  }
+
+  // Highlight the current section in the navigation while scrolling.
+  const sections = document.querySelectorAll("main section[id]");
+  const links = document.querySelectorAll(".navbar .nav-link");
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          links.forEach((link) => {
+            link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: "-35% 0px -55% 0px" });
+    sections.forEach((section) => observer.observe(section));
+  }
+});
