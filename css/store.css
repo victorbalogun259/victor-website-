@@ -6,3 +6,5 @@
 .store-product-art:after{display:none}
 .store-product-art .store-condition{position:absolute;top:12px;left:12px;z-index:3}
 @media(max-width:767px){.store-product-art{height:155px!important}}
+
+.phone-video-showcase{background:#f3f6fa}.phone-video-card{overflow:hidden;background:#071126;border-radius:14px;border:1px solid #dce5f1;box-shadow:0 12px 25px #07112612}.phone-video-card video{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#08152b}.phone-video-caption{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;color:#c9d9f1;font-size:8px;letter-spacing:1px}.phone-video-caption b{color:#38a9ff;font-size:11px}@media(max-width:575px){.phone-video-card video{aspect-ratio:3/4}.phone-video-caption{font-size:7px;padding:9px}}
